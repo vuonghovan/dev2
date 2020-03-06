@@ -19,10 +19,9 @@ jobs:
         dotnet-version: 3.1.101
     - name: Dotnet Publish
       run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
-    - name: git-ftp-action
-      uses: sebastianpopp/git-ftp-action@2.1.0
+    - name: git-ftp push
+      uses: sebastianpopp/git-ftp-action@releases/v2
       with:
-        local: /home/runner/work/dev2/dev2/deploy/
-        ftp-server: ${{ secrets.ftp_host }}
-        ftp-username: ${{ secrets.ftp_username }}
-        ftp-password: ${{ secrets.ftp_password }}
+        url: ftp://14.225.5.21:19
+        user: developer
+        password: Aa123456
