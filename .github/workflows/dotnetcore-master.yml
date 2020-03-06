@@ -19,7 +19,8 @@ jobs:
         dotnet-version: 3.1.101
     - name: Dotnet Publish
       run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
-    - name: Copy via ftp
+    - name: git-ftp-action
+      uses: sebastianpopp/git-ftp-action@2.1.0
       with:
         local: /home/runner/work/dev2/dev2/deploy/
         ftp-server: ${{ secrets.ftp_host }}
