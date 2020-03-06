@@ -12,15 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
     - name: Dotnet Publish
       run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
-    - name: FTP-Deploy-Action
+    - name: git-ftp push
+      uses: vuonghovan/dev2@releases/v2
       with:
-        ftp-server: ${{ secrets.ftp_host }}
-        ftp-username: ${{ secrets.ftp_username }}
-        ftp-password: ${{ secrets.ftp_password }}
+        url: "${{ secrets.ftp_host }}"
+        user: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
