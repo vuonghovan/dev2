@@ -8,21 +8,16 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@master
       with:
-        dotnet-version: 3.1.101
-    - name: Dotnet Publish
-      run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo ${{ secrets.ftp_host }},
-        echo ${{ secrets.ftp_username }},
+        fetch-depth: 2
+    - name: FTP-Deploy-Action
+      uses: vuonghovan/dev2@master
+      with:
+        ftp-server: ${{ secrets.ftp_host }}
+        ftp-username: ${{ secrets.ftp_username }}
+        ftp-password: ${{ secrets.ftp_password }}
