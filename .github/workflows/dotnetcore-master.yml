@@ -12,16 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
     - name: Dotnet Publish
       run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: FTP-Deploy-Action
+      with:
+        ftp-server: ${{ secrets.ftp_host }}
+        ftp-username: ${{ secrets.ftp_username }}
+        ftp-password: ${{ secrets.ftp_password }}
