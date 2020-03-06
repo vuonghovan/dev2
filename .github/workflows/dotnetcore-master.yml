@@ -1,4 +1,3 @@
-
 name: .NET Core
 
 on:
@@ -8,16 +7,21 @@ on:
     branches: [ master ]
 
 jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        fetch-depth: 2
-    - name: FTP-Deploy-Action
-      uses: vuonghovan/dev2@master
+        dotnet-version: 3.1.101
+    - name: Dotnet Publish
+      run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
+    - name: Copy via ftp
       with:
+        local: /home/runner/work/dev2/dev2/deploy/
         ftp-server: ${{ secrets.ftp_host }}
         ftp-username: ${{ secrets.ftp_username }}
         ftp-password: ${{ secrets.ftp_password }}
