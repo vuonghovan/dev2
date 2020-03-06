@@ -1,3 +1,4 @@
+
 name: .NET Core
 
 on:
@@ -12,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@master
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
     - name: Dotnet Publish
       run: dotnet publish ASPNetCore/ASPNetCore.sln -c Release -o deploy
-    - name: git-ftp push
-      uses: vuonghovan/dev2@releases/master
-      with:
-        url: "${{ secrets.ftp_host }}"
-        user: ${{ secrets.ftp_username }}
-        password: ${{ secrets.ftp_password }}
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo ${{ secrets.ftp_host }},
+        echo ${{ secrets.ftp_username }},
